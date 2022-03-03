@@ -1,10 +1,8 @@
 import java.util.ArrayList; 
 
 public class Deck {
-	
-	
-	ArrayList<ArrayList> deckUS = new ArrayList<ArrayList>(); //unshuffled
-	ArrayList<ArrayList> deckS = new ArrayList<ArrayList>();  //shuffled
+	ArrayList deckUS = new ArrayList(); //unshuffled
+	ArrayList deckS = new ArrayList();  //shuffled
 	
 	ArrayList<String> r = new ArrayList<String>(); 
 	ArrayList<String> s = new ArrayList<String>(); 
@@ -39,12 +37,15 @@ public class Deck {
 			for (int y = 0; y < suits.length; y++) { //then for each suit
 				
 				//arrayList for card
-				ArrayList card = new ArrayList(); 
+				//make this part in a new class 
+				//ArrayList card = new ArrayList(); 
+				
+				Card card = new Card(r.get(x), pv.get(x), s.get(y)); 
 				
 				//making an individual card
-				card.add(r.get(x)); 
-				card.add(s.get(y)); 
-				card.add(pv.get(x)); 
+				//card.add(r.get(x)); 
+				//card.add(s.get(y)); 
+				//card.add(pv.get(x)); 
 				
 				//adding the card to the deck 
 				deckUS.add(card); 
@@ -64,8 +65,9 @@ public class Deck {
 		//couldn't figure out how to use .clone()
 		//setting shuffled deck to unshuffled deck initially  
 		for (int g = 0; g < deckUS.size(); g++) {
-			deckS.add(deckUS.get(g)); 
+			deckS.add(deckUS.get(g).toString()); 
 		}
+	
 		
 	} //close constructor
 
@@ -85,8 +87,8 @@ public class Deck {
 	 
 	public void shuffleA() {
 		
-		ArrayList<ArrayList> a = new ArrayList<ArrayList>(deckS.subList(0, deckS.size()/2)); //sub AL for first half of deck
-		ArrayList<ArrayList> b = new ArrayList<ArrayList>(deckS.subList(deckS.size()/2, deckS.size())); //sub AL for second half of deck; 
+		ArrayList a = new ArrayList(deckS.subList(0, deckS.size()/2)); //sub AL for first half of deck
+		ArrayList b = new ArrayList(deckS.subList(deckS.size()/2, deckS.size())); //sub AL for second half of deck; 
 		//using shuffled deck bc you want the shuffling to compound 
 		
 		/*
@@ -102,22 +104,13 @@ public class Deck {
 		* 
 		* */
 		
-		//clear the shuffled deck so we can populate it again with an even more shuffle deck 
+		//clear the shuffled deck so we can populate it again with an even more shuffled deck 
 		deckS.clear(); 
 		
 		//add to the shuffled deck in alteration 
 		int q = 0; 
-		
-		for (int f = 0; f < a.size()/2; f++) { 
-			deckS.add(a.get(q)); 
-			deckS.add(b.get(q)); 
-			q++; 
-		}
-		
-		//have to switch halfway in so the first and last cards get shuffled
-		//the first still stays though
-		//the first still stays though
-		for (int f = 0; f < a.size()/2; f++) { 
+    
+		for (int f = 0; f < a.size(); f++) { 
 			deckS.add(b.get(q)); 
 			deckS.add(a.get(q)); 
 			q++; 
@@ -151,4 +144,5 @@ public class Deck {
 		return size; 
 	}
 
-} //close class
+}
+
